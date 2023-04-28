@@ -1,6 +1,5 @@
 {{ config(materialized='view') }}
-/*
-*/
+
 with CodingCompletedEncounters as (
 
 select MM.Market,HealthPlan_City,ESI.Patientid,ESI.Encounterdate,esi.Visit_Category,Coder_locked_date,Coder_locked_name,
