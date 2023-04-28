@@ -2,20 +2,56 @@
 version: 2
 
 models:
-    - name: my_first_dbt_model
+    - name: vw_encounters
       description: "A starter dbt model"
       columns:
-          - name: id
-            description: "The primary key for this table"
+          - name: Patientid
+            description: "For every Patient there should exist a patientid and this field should not be null"
             tests:
-                - unique
                 - not_null
 
-    - name: my_second_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
+          - name: Market
+            description: "Market to which the Patient belongs to"
+
+          - name: HealthPlan_City
+            description: "HealthPlan_City to which the Patient belongs to"
+
+          - name: Encounterdate
+            description: "Date of Encounter"
             tests:
-                - unique
-                - not_null
+                  - not_null
+
+          - name: Provider_Name
+            description: "Provider name who created the Encounter"
+            tests:
+                  - not_null
+
+          - name: Visit_Category
+            description: "Provider login who created the Encounter"
+            tests:
+            - accepted_values:
+                values: ['Initial Visit2','Initial Visit','Maintenance Visit','Urgent Visit']
+
+          - name: Coder_locked_name
+            description: "Name of the coder who had locked the encounter" 
+
+          - name: Coder_locked_date
+            description: "Date when the coder locked the encounter" 
+
+          - name: Coding_Completed_Date_Time
+            description: "Date when the coder was completed by coder for the encounter"
+
+          - name: Timezone
+            description: "EMR Created Time zone"
+            tests:
+            - accepted_values:
+                values: ['CST','IST','EST','PST','MST']
+
+          - name: Provider_login
+            description: "Provider login of Encounter"
+            tests:
+              - relationships:
+                  to: ref('user_Master')
+                  field: user_login_name 
+
+
