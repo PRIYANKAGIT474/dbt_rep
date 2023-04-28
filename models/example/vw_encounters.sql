@@ -1,5 +1,5 @@
 {{ config(materialized='view') }}
-
+/*/
 
 with CodingCompletedEncounters as (
 
